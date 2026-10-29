@@ -164,6 +164,12 @@ Login to the admin dashboard using the credentials configured in `backend/.env`.
 7. Browse the approved auction and test bidding from another account. You cannot bid on your own item.
 8. For a quick demonstration, use a 1-minute duration and observe automatic closure. If there is a valid bid, an `awaiting_payment` order record is created. With SMTP configured, the winner receives the seller's contact email. With Razorpay test keys configured, the buyer can use the Orders tab to test checkout.
 
+## Deploying the frontend to Netlify
+
+The root `netlify.toml` sets `frontend` as the base directory, installs its locked dependencies with `npm ci --include=dev`, runs its Vite build, and publishes `frontend/dist`. The explicit installation includes Vite and the React build plugin even when deployment starts without frontend dependencies or omits development dependencies by default. The SPA rewrite serves `index.html` for direct visits to React routes such as `/login`, `/watchlist`, and `/auctions/:id`, while existing built assets are served normally.
+
+The Express API and Socket.IO server in `backend` require a separately running backend; publishing the frontend does not start them. Set `VITE_API_URL` in Netlify to the deployed backend's HTTPS URL ending in `/api/v1` before deploying, and configure the backend's `CLIENT_URL` for the Netlify site. Without that configuration, the frontend defaults to the local development API on port 5000.
+
 ## Project structure
 
 ```text
