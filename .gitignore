@@ -1,0 +1,13 @@
+node_modules/
+frontend/dist/
+backend/.env
+frontend/.env
+.env
+.DS_Store
+npm-debug.log*
+coverage/
+
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/.env
+frontend/.env
